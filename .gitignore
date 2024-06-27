@@ -1,0 +1,11 @@
+# Build directory
+dist
+
+# Dependancies directory
+node_modules
+
+# Environment file
+.env
+
+# IDE directory
+.idea
