@@ -115,14 +115,12 @@ export default class Review {
     public async analyzeCommit(owner: string, repo: string, commitSha: string) {
         const diff = await this.getCommitDiffs(owner, repo, commitSha);
         const analysis = await this.analyzeDiff(diff);
-        const comment = `## Code Review\n\n Analysis for commit ${commitSha}:\n ${analysis.text}`;
-        console.log(comment);
-        return comment;
+        return `## Code Review\n\n Analysis for commit ${commitSha}:\n ${analysis.text}`;
     }
 
     public async createReview(owner: string, repo: string, commitSha: string) {
         const comment = await this.analyzeCommit(owner, repo, commitSha);
-        await this.octokit.rest.issues.createComment({
+        await this.octokit.rest.repos.issues.createComment({
             owner,
             repo,
             issue_number: 1,
