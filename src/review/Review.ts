@@ -135,9 +135,9 @@ export default class Review {
     }
 }
 
-const owner = process.env.GITHUB_OWNER ;
-const repo = process.env.GITHUB_REPO;
-const commitSha = process.env.GITHUB_SHA;
+const owner = process.env.OWNER ;
+const repo = process.env.REPO;
+const commitSha = process.env.COMMIT_SHA;
 
 const review = new Review();
 if (owner && repo && commitSha) {
