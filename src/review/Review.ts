@@ -120,10 +120,10 @@ export default class Review {
 
     public async createReview(owner: string, repo: string, commitSha: string) {
         const comment = await this.analyzeCommit(owner, repo, commitSha);
-        await this.octokit.rest.repos.issues.createComment({
+        await this.octokit.rest.repos.commits.createComment({
             owner,
             repo,
-            issue_number: 1,
+            commit_sha: commitSha,
             body: comment
         });
     }
