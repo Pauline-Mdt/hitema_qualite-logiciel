@@ -136,12 +136,12 @@ export default class Review {
 }
 
 const owner = process.env.OWNER;
-const repo = process.env.REPO.split('/')[1];
+const repo = process.env.REPO;
 const commitSha = process.env.COMMIT_SHA;
 
 const review = new Review();
 if (owner && repo && commitSha) {
-    review.reviewCode(owner, repo, commitSha)
+    review.reviewCode(owner, repo.split('/')[1], commitSha)
         .then(() => {
             console.log('Review created');
         })

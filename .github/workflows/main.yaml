@@ -4,7 +4,10 @@ on: [push]
 
 jobs:
   review:
+    name: Review code with AI
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
