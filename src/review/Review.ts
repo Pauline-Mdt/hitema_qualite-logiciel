@@ -68,7 +68,7 @@ export default class Review {
 
     private async init() {
         const apiKey = process.env.ANTHROPIC_API_KEY;
-        const githubToken = process.env.GITHUB_TOKEN;
+        const githubToken = process.env.FINE_GRAINED_TOKEN;
         this.anthropic = new Anthropic({
             apiKey: apiKey,
         });
