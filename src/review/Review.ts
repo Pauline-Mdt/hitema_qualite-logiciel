@@ -58,7 +58,7 @@ class Review {
     public async analyzeCommit(owner: string, repo: string, commitSha: string) {
         const diff = await this.getCommitDiffs(owner, repo, commitSha);
         const analysis = await this.analyzeDiff(diff);
-        return `## Code Review\n\n Analysis for commit ${commitSha}:\n\n ${analysis.text}`;
+        return `# Code Review\n\n Analysis for commit ${commitSha}:\n\n ${analysis.text}`;
     }
 
     public async createReview(owner: string, repo: string, commitSha: string) {
