@@ -1,4 +1,4 @@
-import ReviewCommit from "../ReviewCommit";
+import ReviewCommit from "../entity/ReviewCommit";
 
 const owner = process.env.OWNER;
 const repo = process.env.REPO;

@@ -4,7 +4,7 @@ process.env.OWNER = 'mock-owner';
 process.env.REPO = 'mock-repo';
 process.env.COMMIT_SHA = 'mock-commit-sha';
 
-import ReviewCommit from "../ReviewCommit";
+import ReviewCommit from "../entity/ReviewCommit";
 
 jest.mock('@anthropic-ai/sdk', () => {
     return jest.fn().mockImplementation(() => {
