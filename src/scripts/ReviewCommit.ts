@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-class Review {
+class ReviewCommit {
     private octokit: any;
     private anthropic: any;
     private initialized: Promise<void>;
@@ -62,18 +62,18 @@ class Review {
     }
 
     public async createReview(owner: string, repo: string, commitSha: string) {
-        console.log(owner, repo, commitSha);
         const comment = await this.analyzeCommit(owner, repo, commitSha);
-        await this.octokit.rest.repos.createCommitComment({
+        const response = await this.octokit.rest.repos.createCommitComment({
             owner,
             repo,
             commit_sha: commitSha,
             body: comment
         });
+        return response.data.html_url;
     }
 
     public async reviewCode(owner: string, repo: string, commitSha: string) {
-        await this.createReview(owner, repo, commitSha);
+        return await this.createReview(owner, repo, commitSha);
     }
 }
 
@@ -81,11 +81,11 @@ const owner = process.env.OWNER;
 const repo = process.env.REPO;
 const commitSha = process.env.COMMIT_SHA;
 
-const review = new Review();
+const review = new ReviewCommit();
 if (owner && repo && commitSha) {
     review.reviewCode(owner, repo.split('/')[1], commitSha)
-        .then(() => {
-            console.log('Review created');
+        .then((commitHtmlUrl) => {
+            console.log('Review created for commit', commitHtmlUrl);
         })
         .catch((error) => {
             console.error(error);
