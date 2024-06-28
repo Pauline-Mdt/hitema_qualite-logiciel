@@ -1,63 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-// import {Octokit} from "octokit";
-// let Octokit;
-// import ("octokit").then((module) => {
-//     Octokit = module.Octokit;
-// });
-//
-// const githubToken = process.env.GITHUB_TOKEN;
-// const apiKey = process.env.ANTHROPIC_API_KEY;
-// const anthropic = new Anthropic({
-//     apiKey: process.env.ANTHROPIC_API_KEY,
-// });
-// const octokit = new Octokit.Octokit({
-//     auth: githubToken
-// });
-//
-// export async function getCommitDiffs(owner: string, repo: string, commitSha: string) {
-//     const commit = await octokit.rest.repos.getCommit({
-//         owner,
-//         repo,
-//         ref: commitSha
-//     });
-//
-//     return commit.data.files?.map((file: any) => file.patch).join('\n');
-// }
 
-
-// const Octokit = await import("octokit");
-
-
-// let Octokit;
-// let getCommitDiffs: (owner: string, repo: string, commitSha: string) => Promise<string>;
-//
-// (async () => {
-//     const module = await import('octokit');
-//     Octokit = module.Octokit;
-//
-//     const githubToken = process.env.GITHUB_TOKEN;
-//     const apiKey = process.env.ANTHROPIC_API_KEY;
-//     const anthropic = new Anthropic({
-//         apiKey: process.env.ANTHROPIC_API_KEY,
-//     });
-//     const octokit = new Octokit({
-//         auth: githubToken
-//     });
-//
-//     getCommitDiffs = async function(owner: string, repo: string, commitSha: string) {
-//         const commit = await octokit.rest.repos.getCommit({
-//             owner,
-//             repo,
-//             ref: commitSha
-//         });
-//
-//         return commit.data.files?.map((file: any) => file.patch).join('\n') || '';
-//     }
-// })();
-//
-// export { getCommitDiffs };
-
-export default class Review {
+class Review {
     private octokit: any;
     private anthropic: any;
     private initialized: Promise<void>;
@@ -115,16 +58,13 @@ export default class Review {
     public async analyzeCommit(owner: string, repo: string, commitSha: string) {
         const diff = await this.getCommitDiffs(owner, repo, commitSha);
         const analysis = await this.analyzeDiff(diff);
-        return `## Code Review\n\n Analysis for commit ${commitSha}:\n ${analysis.text}`;
+        return `## Code Review\n\n Analysis for commit ${commitSha}:\n\n ${analysis.text}`;
     }
 
     public async createReview(owner: string, repo: string, commitSha: string) {
         console.log(owner, repo, commitSha);
         const comment = await this.analyzeCommit(owner, repo, commitSha);
         await this.octokit.rest.repos.createCommitComment({
-        // await this.octokit.request('POST /repos/{owner}/{repo}/commits/{commit_sha}/comments', {
-        // await this.octokit.request('POST /repos/{owner}/{repo}/commits/{commit_sha}/comments', {
-        // await this.octokit.request(`POST /repos/${owner}/${repo}/commits/${commitSha}/comments`, {
             owner,
             repo,
             commit_sha: commitSha,
