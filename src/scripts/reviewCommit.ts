@@ -7,8 +7,8 @@ const commitSha = process.env.COMMIT_SHA;
 const review = new ReviewCommit();
 if (owner && repo && commitSha) {
     review.reviewCode(owner, repo.split('/')[1], commitSha)
-        .then((commitHtmlUrl) => {
-            console.log('Review created for commit', commitHtmlUrl);
+        .then((commitCommentUrl) => {
+            console.log('Review created for commit', commitCommentUrl);
         })
         .catch((error) => {
             console.error(error);
