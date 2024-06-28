@@ -6,7 +6,7 @@
     "start": "nodemon src/index.ts",
     "test": "jest",
     "build": "tsc",
-    "review": "node dist/scripts/ReviewCommit.js"
+    "review": "node dist/scripts/reviewCommit.js"
   },
   "keywords": [],
   "author": "",

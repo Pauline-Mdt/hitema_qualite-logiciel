@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-class ReviewCommit {
+export default class ReviewCommit {
     private octokit: any;
     private anthropic: any;
     private initialized: Promise<void>;
@@ -76,21 +76,4 @@ class ReviewCommit {
     public async reviewCode(owner: string, repo: string, commitSha: string) {
         return await this.createReview(owner, repo, commitSha);
     }
-}
-
-const owner = process.env.OWNER;
-const repo = process.env.REPO;
-const commitSha = process.env.COMMIT_SHA;
-
-const review = new ReviewCommit();
-if (owner && repo && commitSha) {
-    review.reviewCode(owner, repo.split('/')[1], commitSha)
-        .then((commitHtmlUrl) => {
-            console.log('Review created for commit', commitHtmlUrl);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-} else {
-    console.error('Missing required environment variables');
 }
