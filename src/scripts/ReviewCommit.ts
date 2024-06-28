@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-class Review {
+class ReviewCommit {
     private octokit: any;
     private anthropic: any;
     private initialized: Promise<void>;
@@ -81,7 +81,7 @@ const owner = process.env.OWNER;
 const repo = process.env.REPO;
 const commitSha = process.env.COMMIT_SHA;
 
-const review = new Review();
+const review = new ReviewCommit();
 if (owner && repo && commitSha) {
     review.reviewCode(owner, repo.split('/')[1], commitSha)
         .then(() => {
